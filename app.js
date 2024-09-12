@@ -9,7 +9,7 @@ require('dotenv').config();  // To load environment variables
 const {loginController,verifyController} = require("./loginController")
 const { authenticateToken } = require('./authMiddleware'); 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT||3000;
 
 app.use(cors());  // Enable CORS for all routes
 app.use(express.json());
