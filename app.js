@@ -49,16 +49,16 @@ app.post('/api/download-youtube-video', async (req, res) => {
       format: 'mp4'
     });
 
-    // Save the video details to MongoDB
-    const newVideo = new Video({ url, videoPath });
-    await newVideo.save();
+    // // Save the video details to MongoDB
+    // const newVideo = new Video({ url, videoPath });
+    // await newVideo.save();
 
     // Send the video file as a Blob (or file stream)
     const videoStream = fs.createReadStream(videoPath);
     videoStream.pipe(res);
 
-    // Optionally, you could clean up the file after sending
-    videoStream.on('end', () => fs.unlinkSync(videoPath));
+    // videoStream.on('end', () => fs.unlinkSync(videoPath));
+    videoStream.on('end', () => {console.log("video stream end")});
   } catch (error) {
     console.error("Error downloading video", error);
     res.status(500).send({ error: 'Error downloading video' });
